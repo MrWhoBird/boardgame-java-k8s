@@ -1,0 +1,8 @@
+ec2.1 - install kubernetes (+docker+kubectl+minikube):
+- add user to docker group
+- start minikube
+
+ec2.2 - install sonarqube & nexus
+
+ec2.3 - install jenkins
+
