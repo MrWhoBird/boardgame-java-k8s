@@ -1,8 +1,19 @@
 ec2.1 - install kubernetes (+docker+kubectl+minikube):
-- add user to docker group
+- add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker)
 - start minikube
 
-ec2.2 - install sonarqube & nexus
+ec2.2 - install sonarqube
+- add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker)
+- docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 
-ec2.3 - install jenkins
+ec2.3 - install nexus (+docker)
+- add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker)
+- docker run -d --name nexus -p 8081:8081 sonatype/nexus3
 
+ec2.3 - install jenkins (+java+trivy)
+- plugins: jdk temurin, maven config file provider, pipeline maven integration, maven integration, sonaqube scanner, docker, docker pipeline, kubernetes, kubernetes cli, kubernetes client api
+- configure tools (jdk, sonarqube, maven, docker)
+- manage sonar server (manage jenkins+credentials)
+- configure quality gates (on sonar server + add jenkins webhook)
+
+create job [jenkinsfile]
