@@ -1,5 +1,5 @@
 ec2.1 - install kubernetes (+docker+kubectl+minikube):
-- add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker)
+- add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker / sudo chmod 666 /var/run/docker.sock)
 - start minikube
 
 ec2.2 - install sonarqube
@@ -10,10 +10,21 @@ ec2.3 - install nexus (+docker)
 - add user to docker group (sudo usermod -aG docker ubuntu && newgrp docker)
 - docker run -d --name nexus -p 8081:8081 sonatype/nexus3
 
-ec2.3 - install jenkins (+java+trivy)
+ec2.3 - install jenkins (+java+trivy+docker)
 - plugins: jdk temurin, maven config file provider, pipeline maven integration, maven integration, sonaqube scanner, docker, docker pipeline, kubernetes, kubernetes cli, kubernetes client api
 - configure tools (jdk, sonarqube, maven, docker)
-- manage sonar server (manage jenkins+credentials)
-- configure quality gates (on sonar server + add jenkins webhook)
 
-create job [jenkinsfile]
+create job [jenkinsfile]:
+- manage sonar server (manage jenkins+credentials)
+- configure quality gates (on sonar server + add jenkins webhook on sonar server)
+- configure nexus (add repo on nexus server+add section in pom.xml file+add credentials in jenkins+config file provider plugin)
+- build and tag docker image (add credentials) and push it to dockerhub
+
+create an ssh connection jenkins-kubernetes:
+K8S:
+-set password [passwd ubuntu]
+-etc/ssh/sshd_config+allow pass auth+permit root login+service restart
+ANSIBLE:
+-ssh-keygen [generate by specific user]
+-ssh-copy-id user@ip
+-add ip to ansible hosts (ansible -m ping + ip)
